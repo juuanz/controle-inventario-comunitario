@@ -37,9 +37,7 @@ def cadastro_item(escolha):
     if escolha == 1:
     
         while True:
-            entrada_codigo = input(
-                "Digite o código de identificação do item: "
-            ).strip()
+            entrada_codigo = input("Digite o código de identificação do item: ").strip()
 
             if not entrada_codigo.isdigit():
                 print("DIGITE APENAS NÚMEROS.")
