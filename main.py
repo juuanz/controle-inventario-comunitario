@@ -106,7 +106,17 @@ def listar_item(escolha):
             return
         
         for item in lista_itens:
-            print (item)
+            situacao = "Disponível" if item["disponivel"] else "Emprestado"
+
+            print (30 * "=")
+            print(f"Código: {item['codigo']}")
+            print(f"Nome: {item['nome']}")
+            print(f"Categoria: {item['categoria']}")
+            print(f"Estado: {item['estado']}")
+            print(f"Disponibilidade: {item['disponivel']}")
+            print(f"Quantidade de empréstimos: {item['quantidade_emprestimos']}")
+            print (30 * "=")
+            
         
 menu_start()
 escolha_start()
