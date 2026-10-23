@@ -1,0 +1,22 @@
+{
+  "itens": [
+    {
+      "codigo": 1,
+      "nome": "Mesa",
+      "categoria": "Móvel",
+      "estado": "Novo",
+      "disponivel": true,
+      "quantidade_emprestimos": 0
+    }
+  ],
+  "usuarios": [
+    {
+      "codigo": 1,
+      "nome": "Juan",
+      "telefone": "11983021341",
+      "ativo": true
+    }
+  ],
+  "emprestimos": [],
+  "reservas": []
+}

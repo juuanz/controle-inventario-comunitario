@@ -1,5 +1,17 @@
-lista_itens = []
-lista_usuarios = []
+import json
+
+def carregar_dados():
+    with open("data/data.json", "r", encoding="utf-8") as arquivo:
+        dados = json.load(arquivo)
+
+        return dados
+
+dados = carregar_dados()
+
+lista_itens = dados["itens"]
+lista_usuarios = dados ["usuarios"]
+lista_emprestimos = dados ["emprestimos"]
+lista_reservas = dados ["reservas"]
 
 
 def menu_start():
@@ -61,7 +73,7 @@ def cadastro_item(escolha):
             break
 
         while True:
-            nome = input("Digite o nome do item: ").strip()
+            nome = input("Digite o nome do item: ").strip().capitalize()
 
             if nome == "":
                 print("O nome não pode ficar vazio.")
@@ -70,7 +82,7 @@ def cadastro_item(escolha):
             break
 
         while True:
-            categoria = input("Digite a categoria do item: ").strip()
+            categoria = input("Digite a categoria do item: ").strip().capitalize()
 
             if categoria == "":
                 print("A categoria não pode ficar vazia.")
@@ -79,7 +91,7 @@ def cadastro_item(escolha):
             break
 
         while True:
-            estado = input("Digite o estado atual do item: ").strip()
+            estado = input("Digite o estado atual do item: ").strip().capitalize()
 
             if estado == "":
                 print("O estado não pode ficar vazio.")
@@ -97,6 +109,7 @@ def cadastro_item(escolha):
         }
 
         lista_itens.append(item)
+        salvar_dados(dados)
         print("Item adicionado com sucesso!")
 
 
@@ -117,7 +130,7 @@ def cadastrar_usuario(escolha):
             break
 
         while True:
-            nome_usuario = input("Digite o nome do usuário: ").strip()
+            nome_usuario = input("Digite o nome do usuário: ").strip().capitalize
             if nome_usuario == "":
                 print("O nome não pode ficar vazio.")
                 continue
@@ -131,7 +144,9 @@ def cadastrar_usuario(escolha):
 
             if not telefone_usuario.isdigit() or len(telefone_usuario) not in (10,11):
                 print("Digite um telefone com DDD, contendo 10 ou 11 números.")
-            break
+                continue
+            
+            break   
 
         usuario_ativo = True
 
@@ -143,6 +158,7 @@ def cadastrar_usuario(escolha):
         }
 
         lista_usuarios.append(usuario)
+        salvar_dados(dados)
         print("Usuário cadastro com sucesso!")
 
 def codigo_item_existe(codigo):
@@ -172,7 +188,7 @@ def listar_item(escolha):
             print(f"Nome: {item['nome']}")
             print(f"Categoria: {item['categoria']}")
             print(f"Estado: {item['estado']}")
-            print(f"Disponibilidade: {item['situacao']}")
+            print(f"Disponibilidade: {situacao}")
             print(f"Quantidade de empréstimos: {item['quantidade_emprestimos']}")
             print (30 * "=")
 
@@ -191,9 +207,12 @@ def listar_usuarios(escolha):
             print(f"Código: {usuario['codigo']}" )
             print(f"Nome: {usuario['nome']}" )
             print(f"Telefone: {usuario['telefone']}" )
-            print(f"Ativo: {usuario['situacao']}" )
+            print(f"Ativo: {situacao}")
             print(30 * "=")
 
-        
+def salvar_dados(dados):
+    with open("data/data.json", "w", encoding="utf-8") as arquivo:        
+        json.dump(dados, arquivo, ensure_ascii=False, indent=2)
+
 
 escolha_start()
