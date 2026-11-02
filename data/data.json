@@ -14,7 +14,7 @@
       "categoria": "Utilitario",
       "estado": "Novo",
       "disponivel": true,
-      "quantidade_emprestimos": 0
+      "quantidade_emprestimos": 1
     },
     {
       "codigo": 20,
@@ -22,7 +22,7 @@
       "categoria": "Acessório",
       "estado": "Usado",
       "disponivel": true,
-      "quantidade_emprestimos": 0
+      "quantidade_emprestimos": 1
     },
     {
       "codigo": 2,
@@ -30,17 +30,162 @@
       "categoria": "Material",
       "estado": "Usado",
       "disponivel": true,
+      "quantidade_emprestimos": 1
+    },
+    {
+      "codigo": 3,
+      "nome": "Furadeira",
+      "categoria": "Ferramenta",
+      "estado": "Bom",
+      "disponivel": true,
+      "quantidade_emprestimos": 1
+    },
+    {
+      "codigo": 4,
+      "nome": "Escada",
+      "categoria": "Ferramenta",
+      "estado": "Bom",
+      "disponivel": true,
+      "quantidade_emprestimos": 1
+    },
+    {
+      "codigo": 5,
+      "nome": "Martelo",
+      "categoria": "Ferramenta",
+      "estado": "Novo",
+      "disponivel": true,
+      "quantidade_emprestimos": 1
+    },
+    {
+      "codigo": 6,
+      "nome": "Bola de futebol",
+      "categoria": "Esporte",
+      "estado": "Bom",
+      "disponivel": false,
+      "quantidade_emprestimos": 1
+    },
+    {
+      "codigo": 7,
+      "nome": "Projetor",
+      "categoria": "Equipamento",
+      "estado": "Regular",
+      "disponivel": false,
+      "quantidade_emprestimos": 1
+    },
+    {
+      "codigo": 8,
+      "nome": "Barraca",
+      "categoria": "Lazer",
+      "estado": "Bom",
+      "disponivel": true,
       "quantidade_emprestimos": 0
     }
   ],
   "usuarios": [
     {
       "codigo": 1,
-      "nome": "Juan",
-      "telefone": "11983021341",
+      "nome": "Marcos Oliveira",
+      "telefone": "11966666666",
       "ativo": true
+    },
+    {
+      "codigo": 101,
+      "nome": "Ana Souza",
+      "telefone": "11911111111",
+      "ativo": true
+    },
+    {
+      "codigo": 102,
+      "nome": "Bruno Lima",
+      "telefone": "11922222222",
+      "ativo": true
+    },
+    {
+      "codigo": 103,
+      "nome": "Carla Mendes",
+      "telefone": "11933333333",
+      "ativo": true
+    },
+    {
+      "codigo": 104,
+      "nome": "Diego Alves",
+      "telefone": "11944444444",
+      "ativo": false
     }
   ],
-  "emprestimos": [],
+  "emprestimos": [
+    {
+      "codigo": 1,
+      "codigo_usuario": 101,
+      "codigo_item": 10,
+      "data_emprestimo": "2026-10-01",
+      "data_prevista_devolucao": "2026-10-08",
+      "data_devolucao": "2026-10-07",
+      "status": "devolvido"
+    },
+    {
+      "codigo": 2,
+      "codigo_usuario": 102,
+      "codigo_item": 20,
+      "data_emprestimo": "2026-10-03",
+      "data_prevista_devolucao": "2026-10-10",
+      "data_devolucao": "2026-10-09",
+      "status": "devolvido"
+    },
+    {
+      "codigo": 3,
+      "codigo_usuario": 103,
+      "codigo_item": 2,
+      "data_emprestimo": "2026-10-05",
+      "data_prevista_devolucao": "2026-10-12",
+      "data_devolucao": "2026-10-11",
+      "status": "devolvido"
+    },
+    {
+      "codigo": 4,
+      "codigo_usuario": 104,
+      "codigo_item": 3,
+      "data_emprestimo": "2026-10-08",
+      "data_prevista_devolucao": "2026-10-15",
+      "data_devolucao": "2026-10-14",
+      "status": "devolvido"
+    },
+    {
+      "codigo": 5,
+      "codigo_usuario": 101,
+      "codigo_item": 4,
+      "data_emprestimo": "2026-10-10",
+      "data_prevista_devolucao": "2026-10-17",
+      "data_devolucao": "2026-10-16",
+      "status": "devolvido"
+    },
+    {
+      "codigo": 6,
+      "codigo_usuario": 102,
+      "codigo_item": 5,
+      "data_emprestimo": "2026-10-12",
+      "data_prevista_devolucao": "2026-10-19",
+      "data_devolucao": "2026-10-18",
+      "status": "devolvido"
+    },
+    {
+      "codigo": 7,
+      "codigo_usuario": 103,
+      "codigo_item": 6,
+      "data_emprestimo": "2026-10-29",
+      "data_prevista_devolucao": "2026-11-05",
+      "data_devolucao": null,
+      "status": "ativo"
+    },
+    {
+      "codigo": 8,
+      "codigo_usuario": 104,
+      "codigo_item": 7,
+      "data_emprestimo": "2026-10-30",
+      "data_prevista_devolucao": "2026-11-06",
+      "data_devolucao": null,
+      "status": "ativo"
+    }
+  ],
   "reservas": []
 }
