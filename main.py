@@ -30,6 +30,7 @@ def menu_start():
     print("7 - Buscar item por código")
     print("8 - Listar itens ordenados por código")
     print("9 - Buscar item com busca binária")
+    print("10 - Ranking de itens mais emprestados")
     print(20 * "=")
 
 def escolha_start():
@@ -63,6 +64,8 @@ def escolha_start():
             listar_itens_ordenados(escolha)
         elif escolha == 9:
             buscar_item_binario(escolha)
+        elif escolha == 10:
+            ranking_itens(escolha)
         else:
             print("OPÇÃO INVÁLIDA.")
       
@@ -379,6 +382,24 @@ def listar_itens_ordenados(escolha):
             print(f"Disponibilidade: {situacao}")
             print(f"Quantidade de empréstimos: {item['quantidade_emprestimos']}")
             print(30 * "=")
+
+def ranking_itens(escolha):
+    if escolha == 10:
+        if len(lista_itens) == 0:
+            print("Nenhum item cadastrado.")
+            return
+
+        itens_ordenados = ordenar_insercao(lista_itens, "quantidade_emprestimos")[::-1]
+        posicao = 1
+
+        for item in itens_ordenados:
+            print(30 * "=")
+            print(f"{posicao}º lugar")
+            print(f"Código: {item['codigo']}")
+            print(f"Nome: {item['nome']}")
+            print(f"Quantidade de empréstimos: {item['quantidade_emprestimos']}")
+            print(30 * "=")
+            posicao += 1
 
 
 def listar_usuarios(escolha):
