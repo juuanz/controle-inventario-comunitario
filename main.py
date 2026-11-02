@@ -31,6 +31,7 @@ def menu_start():
     print("8 - Listar itens ordenados por código")
     print("9 - Buscar item com busca binária")
     print("10 - Ranking de itens mais emprestados")
+    print("11 - Exibir relatório")
     print(20 * "=")
 
 def escolha_start():
@@ -66,6 +67,8 @@ def escolha_start():
             buscar_item_binario(escolha)
         elif escolha == 10:
             ranking_itens(escolha)
+        elif escolha == 11:
+            exibir_relatorio(escolha)
         else:
             print("OPÇÃO INVÁLIDA.")
       
@@ -400,6 +403,50 @@ def ranking_itens(escolha):
             print(f"Quantidade de empréstimos: {item['quantidade_emprestimos']}")
             print(30 * "=")
             posicao += 1
+
+def exibir_relatorio(escolha):
+    if escolha == 11:
+        total_itens = len(lista_itens)
+        total_usuarios = len(lista_usuarios)
+        total_emprestimos = len(lista_emprestimos)
+        itens_disponiveis = 0
+        usuarios_ativos = 0
+        emprestimos_ativos = 0
+        quantidade_emprestimos = 0
+
+        for item in lista_itens:
+            if item["disponivel"]:
+                itens_disponiveis += 1
+
+            quantidade_emprestimos += item["quantidade_emprestimos"]
+
+        for usuario in lista_usuarios:
+            if usuario["ativo"]:
+                usuarios_ativos += 1
+
+        for emprestimo in lista_emprestimos:
+            if emprestimo["status"] == "ativo":
+                emprestimos_ativos += 1
+
+        itens_emprestados = total_itens - itens_disponiveis
+
+        if total_itens > 0:
+            media_emprestimos = quantidade_emprestimos / total_itens
+        else:
+            media_emprestimos = 0
+
+        print(30 * "=")
+        print("RELATÓRIO DO SISTEMA")
+        print(30 * "=")
+        print(f"Total de itens: {total_itens}")
+        print(f"Itens disponíveis: {itens_disponiveis}")
+        print(f"Itens emprestados: {itens_emprestados}")
+        print(f"Total de usuários: {total_usuarios}")
+        print(f"Usuários ativos: {usuarios_ativos}")
+        print(f"Total de empréstimos registrados: {total_emprestimos}")
+        print(f"Empréstimos ativos: {emprestimos_ativos}")
+        print(f"Média de empréstimos por item: {media_emprestimos:.2f}")
+        print(30 * "=")
 
 
 def listar_usuarios(escolha):
