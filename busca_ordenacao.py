@@ -23,3 +23,21 @@ def ordenar_insercao(registros, chave):
         lista[j + 1] = atual
 
     return lista
+
+def busca_binaria(registros, codigo):
+    inicio = 0
+    fim = len(registros) - 1
+    comparacoes = 0
+
+    while inicio <= fim:
+        meio = (inicio + fim) // 2
+        comparacoes += 1
+
+        if registros[meio]["codigo"] == codigo:
+            return meio, comparacoes
+        elif registros[meio]["codigo"] < codigo:
+            inicio = meio + 1
+        else:
+            fim = meio - 1
+
+    return -1, comparacoes

@@ -1,6 +1,6 @@
 import json
 from datetime import date, timedelta
-from busca_ordenacao import busca_sequencial, ordenar_insercao
+from busca_ordenacao import busca_sequencial, ordenar_insercao, busca_binaria
 
 def carregar_dados():
     with open("data/data.json", "r", encoding="utf-8") as arquivo:
@@ -29,6 +29,7 @@ def menu_start():
     print("6 - Listar empréstimos")
     print("7 - Buscar item por código")
     print("8 - Listar itens ordenados por código")
+    print("9 - Buscar item com busca binária")
     print(20 * "=")
 
 def escolha_start():
@@ -60,6 +61,8 @@ def escolha_start():
             buscar_item(escolha)
         elif escolha == 8:
             listar_itens_ordenados(escolha)
+        elif escolha == 9:
+            buscar_item_binario(escolha)
         else:
             print("OPÇÃO INVÁLIDA.")
       
@@ -298,6 +301,35 @@ def buscar_item(escolha):
             return
 
         item = lista_itens[posicao]
+        situacao = "Disponível" if item["disponivel"] else "Emprestado"
+
+        print(30 * "=")
+        print(f"Código: {item['codigo']}")
+        print(f"Nome: {item['nome']}")
+        print(f"Categoria: {item['categoria']}")
+        print(f"Estado: {item['estado']}")
+        print(f"Disponibilidade: {situacao}")
+        print(f"Comparações realizadas: {comparacoes}")
+        print(30 * "=")
+
+def buscar_item_binario(escolha):
+    if escolha == 9:
+        entrada_codigo = input("Digite o código do item que deseja buscar: ").strip()
+
+        if not entrada_codigo.isdigit():
+            print("Digite apenas números nesse campo!")
+            return
+
+        codigo = int(entrada_codigo)
+        itens_ordenados = ordenar_insercao(lista_itens, "codigo")
+        posicao, comparacoes = busca_binaria(itens_ordenados, codigo)
+
+        if posicao == -1:
+            print("Item não encontrado!")
+            print(f"Comparações realizadas: {comparacoes}")
+            return
+
+        item = itens_ordenados[posicao]
         situacao = "Disponível" if item["disponivel"] else "Emprestado"
 
         print(30 * "=")
