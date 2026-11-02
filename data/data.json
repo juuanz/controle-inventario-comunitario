@@ -7,6 +7,30 @@
       "estado": "Novo",
       "disponivel": true,
       "quantidade_emprestimos": 0
+    },
+    {
+      "codigo": 10,
+      "nome": "Lousa",
+      "categoria": "Utilitario",
+      "estado": "Novo",
+      "disponivel": true,
+      "quantidade_emprestimos": 0
+    },
+    {
+      "codigo": 20,
+      "nome": "Oculos",
+      "categoria": "Acessório",
+      "estado": "Usado",
+      "disponivel": true,
+      "quantidade_emprestimos": 0
+    },
+    {
+      "codigo": 2,
+      "nome": "Lápis",
+      "categoria": "Material",
+      "estado": "Usado",
+      "disponivel": true,
+      "quantidade_emprestimos": 0
     }
   ],
   "usuarios": [

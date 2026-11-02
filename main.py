@@ -1,6 +1,6 @@
 import json
 from datetime import date, timedelta
-from busca_ordenacao import busca_sequencial
+from busca_ordenacao import busca_sequencial, ordenar_insercao
 
 def carregar_dados():
     with open("data/data.json", "r", encoding="utf-8") as arquivo:
@@ -28,6 +28,7 @@ def menu_start():
     print("5 - Realizar empréstimo")
     print("6 - Listar empréstimos")
     print("7 - Buscar item por código")
+    print("8 - Listar itens ordenados por código")
     print(20 * "=")
 
 def escolha_start():
@@ -57,6 +58,8 @@ def escolha_start():
             listar_emprestimos(escolha)
         elif escolha == 7:
             buscar_item(escolha)
+        elif escolha == 8:
+            listar_itens_ordenados(escolha)
         else:
             print("OPÇÃO INVÁLIDA.")
       
@@ -324,6 +327,26 @@ def listar_item(escolha):
             print(f"Disponibilidade: {situacao}")
             print(f"Quantidade de empréstimos: {item['quantidade_emprestimos']}")
             print (30 * "=")
+
+def listar_itens_ordenados(escolha):
+    if escolha == 8:
+        if len(lista_itens) == 0:
+            print("Nenhum item cadastrado.")
+            return
+
+        itens_ordenados = ordenar_insercao(lista_itens, "codigo")
+
+        for item in itens_ordenados:
+            situacao = "Disponível" if item["disponivel"] else "Emprestado"
+
+            print(30 * "=")
+            print(f"Código: {item['codigo']}")
+            print(f"Nome: {item['nome']}")
+            print(f"Categoria: {item['categoria']}")
+            print(f"Estado: {item['estado']}")
+            print(f"Disponibilidade: {situacao}")
+            print(f"Quantidade de empréstimos: {item['quantidade_emprestimos']}")
+            print(30 * "=")
 
 
 def listar_usuarios(escolha):
