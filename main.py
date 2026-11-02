@@ -1,4 +1,5 @@
 import json
+from datetime import date, timedelta
 
 def carregar_dados():
     with open("data/data.json", "r", encoding="utf-8") as arquivo:
@@ -23,6 +24,8 @@ def menu_start():
     print("2 - Listar itens")
     print("3 - Cadastrar usuário")
     print("4 - Listar usuários")
+    print("5 - Realizar empréstimo")
+    print("6 - Listar empréstimos")
     print(20 * "=")
 
 def escolha_start():
@@ -46,6 +49,10 @@ def escolha_start():
             cadastrar_usuario(escolha)
         elif escolha == 4:
             listar_usuarios(escolha)
+        elif escolha == 5:
+            realizar_emprestimo(escolha)
+        elif escolha == 6:
+            listar_emprestimos(escolha)
         else:
             print("OPÇÃO INVÁLIDA.")
       
@@ -130,7 +137,7 @@ def cadastrar_usuario(escolha):
             break
 
         while True:
-            nome_usuario = input("Digite o nome do usuário: ").strip().capitalize
+            nome_usuario = input("Digite o nome do usuário: ").strip().capitalize()
             if nome_usuario == "":
                 print("O nome não pode ficar vazio.")
                 continue
@@ -161,6 +168,87 @@ def cadastrar_usuario(escolha):
         salvar_dados(dados)
         print("Usuário cadastro com sucesso!")
 
+def realizar_emprestimo(escolha):
+    if escolha == 5:
+        while True:
+            codigo_entrada = input("Digite o código de identificação do empréstimo: ").strip()
+            if not codigo_entrada.isdigit():
+                print("Digite apenas números nesse campo!")
+                continue
+
+            codigo_emprestimo = int(codigo_entrada)
+
+            if codigo_emprestimo_existe(codigo_emprestimo):
+                print("Código não disponível, tente novamente!")
+                continue
+
+            break
+
+        while True:
+            codigo_entrada_usuario = input("Digite o código do usuário que vai realizar o empréstimo: ").strip()
+            if not codigo_entrada_usuario.isdigit():
+                print("Digite apenas números nesse campo!")
+                continue
+
+            codigo_usuario = int(codigo_entrada_usuario)
+            usuario = buscar_usuario_por_codigo(codigo_usuario)
+
+            if usuario is None:
+                print("Usuário não encontrado!")
+                continue
+
+            if not usuario["ativo"]:
+                print("Usuário inativo!")
+                continue
+
+            break
+
+        while True:
+            codigo_entrada_item = input("Digite o código do item que procura: ").strip()
+            if not codigo_entrada_item.isdigit():
+                print("Digite apenas números nesse campo!")
+                continue
+
+            codigo_item = int(codigo_entrada_item)
+            item = buscar_item_por_codigo(codigo_item)
+
+            if item is None:
+                print("O código/item não foi encontrado!")
+                continue
+
+            if not item["disponivel"]:
+                print("O item não está disponível para empréstimo!")
+                continue
+
+            break
+
+        data_emprestimo = date.today()
+        data_prevista_devolucao = data_emprestimo + timedelta(days=7)
+
+        emprestimo = {
+            "codigo": codigo_emprestimo,
+            "codigo_usuario": codigo_usuario,
+            "codigo_item": codigo_item,
+            "data_emprestimo": data_emprestimo.isoformat(),
+            "data_prevista_devolucao": data_prevista_devolucao.isoformat(),
+            "data_devolucao": None,
+            "status": "ativo"
+        }
+
+        lista_emprestimos.append(emprestimo)
+        item["disponivel"] = False
+        item["quantidade_emprestimos"] += 1
+        salvar_dados(dados)
+
+        print("Empréstimo realizado com sucesso!")
+        print(f"Devolução prevista para: {data_prevista_devolucao.isoformat()}")
+
+def codigo_emprestimo_existe(codigo_emprestimo):
+    for codigo in lista_emprestimos:
+        if codigo["codigo"] == codigo_emprestimo: 
+            return True
+    return False
+
 def codigo_item_existe(codigo):
     for item in lista_itens:
         if item["codigo"] == codigo:
@@ -173,7 +261,20 @@ def codigo_usuario_existe(codigo_usuario):
             return True
     return False
 
-          
+def buscar_usuario_por_codigo(codigo_usuario):
+    for usuario in lista_usuarios:
+        if usuario["codigo"] == codigo_usuario:
+            return usuario
+    return None
+
+
+def buscar_item_por_codigo(codigo):
+    for item in lista_itens:
+        if item["codigo"] == codigo:
+            return item
+    return None
+
+
 def listar_item(escolha):
     if escolha == 2:
         if len(lista_itens) == 0:
@@ -208,6 +309,28 @@ def listar_usuarios(escolha):
             print(f"Nome: {usuario['nome']}" )
             print(f"Telefone: {usuario['telefone']}" )
             print(f"Ativo: {situacao}")
+            print(30 * "=")
+
+def listar_emprestimos(escolha):
+    if escolha == 6:
+        if len(lista_emprestimos) == 0:
+            print("Nenhum empréstimo foi cadastrado!")
+            return
+
+        for emprestimo in lista_emprestimos:
+            usuario = buscar_usuario_por_codigo(emprestimo["codigo_usuario"])
+            item = buscar_item_por_codigo(emprestimo["codigo_item"])
+
+            nome_usuario = usuario["nome"] if usuario is not None else "Usuário não encontrado"
+            nome_item = item["nome"] if item is not None else "Item não encontrado"
+
+            print(30 * "=")
+            print(f"Código: {emprestimo['codigo']}")
+            print(f"Usuário: {nome_usuario}")
+            print(f"Item: {nome_item}")
+            print(f"Data do empréstimo: {emprestimo['data_emprestimo']}")
+            print(f"Devolução prevista: {emprestimo['data_prevista_devolucao']}")
+            print(f"Status: {emprestimo['status'].capitalize()}")
             print(30 * "=")
 
 def salvar_dados(dados):
